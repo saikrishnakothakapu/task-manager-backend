@@ -14,9 +14,16 @@ import java.time.LocalDateTime;
 public class TaskResponse {
 
     private Long id;
+
     private String title;
+
+    private String description;
+
     private TaskStatus status;
+
     private TaskPriority priority;
+
     private LocalDateTime dueDate;
+
     private LocalDateTime createdAt;
 }

@@ -7,12 +7,16 @@ import com.taskmanager.entity.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     List<Task> findByUser(User user);
+
+    Optional<Task> findById(Long taskId);
 
     List<Task> findByUserAndStatus(User user, TaskStatus status);
 
