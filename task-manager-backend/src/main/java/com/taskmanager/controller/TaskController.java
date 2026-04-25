@@ -9,10 +9,10 @@ import com.taskmanager.service.TaskService;
 import com.taskmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -28,9 +28,25 @@ public class TaskController {
 //    private UserService userService;
 
     @PostMapping("/tasks")
-    public ResponseEntity<?> addTask(@RequestBody CreateTaskRequest task, String userEmail) throws UserException {
+    public ResponseEntity<?> addTask(@RequestBody CreateTaskRequest task) throws UserException {
 
-        TaskResponse  taskResponse = taskService.createTask(task,userEmail);
+        String email = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+
+        TaskResponse  taskResponse = taskService.createTask(task,email);
         return ResponseEntity.ok(taskResponse);
+    }
+
+    @GetMapping("/tasks")
+    public ResponseEntity<?> getTasks() throws UserException {
+        String email = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        List<TaskResponse> list = taskService.getTasks(email);
+
+        return ResponseEntity.ok(list);
     }
 }
