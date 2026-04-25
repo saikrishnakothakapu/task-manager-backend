@@ -24,8 +24,8 @@ public class TaskController {
     private UserRepository userRepository;
     @Autowired
     private TaskService taskService;
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     @PostMapping("/tasks")
     public ResponseEntity<?> addTask(@RequestBody CreateTaskRequest task, String userEmail) throws UserException {

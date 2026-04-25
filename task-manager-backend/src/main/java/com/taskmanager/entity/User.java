@@ -1,5 +1,6 @@
 package com.taskmanager.entity;
 
+import com.taskmanager.entity.enums.Role;
 import jakarta.persistence.*;
 
 
@@ -25,7 +26,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-    private String role;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
